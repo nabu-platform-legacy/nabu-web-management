@@ -1,6 +1,0 @@
-<module>
-	<id>nabu.web.management.metrics</id>
-	<name>Management Metrics</name>
-	<description>Includes a web interface for metrics</description>
-	<version>1.0</version>
-</module>
