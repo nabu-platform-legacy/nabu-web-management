@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><webApplication><virtualHost>nabu.web.management.misc.host</virtualHost><realm>nabu</realm><path>/metrics</path><webFragments>nabu.web.gcss.gcssComponent</webFragments><webFragments>nabu.web.management.metrics.rest.list</webFragments><webFragments>nabu.web.management.metrics.rest.metrics</webFragments></webApplication>

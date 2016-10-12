@@ -1,0 +1,10 @@
+@get
+id ?= "djobby.artifacts.web"
+
+keys = nabu.web.application.Services.translationKeys(id)/translationKeys
+
+for (key : keys)
+	csv = array(csv, join("|", array(key/key, key/value, "")))
+	
+response.content(join("\n", unique(csv)), "text/csv")
+

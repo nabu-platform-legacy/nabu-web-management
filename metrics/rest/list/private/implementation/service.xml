@@ -1,0 +1,10 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" disabled="false" id="f801c537-3f45-4588-9087-fb8188a4a90e">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map" disabled="false" id="e96405d1-8a66-4a2c-be09-73a03d25f98e">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke" disabled="false" id="b4da0d93-004f-4f97-a648-dbb3426eec72" invocationOrder="0" temporaryMapping="true" serviceId="nabu.misc.metrics.Services.metricDatabases" resultName="result72b1ddbe5b9a4eb48fdbf1db37cd8f50" x="90" y="74">
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="1278a33a-cde8-440f-80c5-2cea31c9e07d" optional="false" fixedValue="false">
+			<from>result72b1ddbe5b9a4eb48fdbf1db37cd8f50/metricDatabaseIds</from>
+			<to>output/content/metrics</to>
+		</steps>
+	</steps>
+</sequence>

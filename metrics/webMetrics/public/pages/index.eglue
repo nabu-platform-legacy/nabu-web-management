@@ -1,0 +1,92 @@
+<html>
+	<head>
+		<title>Nabu Metrics</title>
+		<script src='${server.root()}resources/javascript/ajax-1.1.js' type="text/javascript"></script>
+		<script src='${server.root()}resources/javascript/vue-1.0.13.js' type="text/javascript"></script>
+		<script src='${server.root()}resources/javascript/main.js' type="text/javascript"></script>
+		<script src='${server.root()}resources/javascript/chartist-0.9.5.js' type="text/javascript"></script>
+		
+		<link rel='stylesheet' type='text/css' href='${server.root()}css/main'/>
+		<link rel='stylesheet' type='text/css' href='${server.root()}resources/css/chartist-0.9.5.css'/>
+	</head>
+	<body>
+		<div class="navigation">
+			<a v-for="metricDatabase in metricDatabases" v-on:click="select(metricDatabase)" href="#">{{ metricDatabase }}</a>
+		</div>
+		<div class="sideBar">
+			<div class="category" v-for="category in categories">
+				<div class="type">
+					<img v-on:click="toggleCategory(category)" src="${server.root()}resources/images/minus.png" v-show="visibleCategories.indexOf(category) >= 0"/>
+					<img v-on:click="toggleCategory(category)" src="${server.root()}resources/images/plus.png" v-show="visibleCategories.indexOf(category) < 0"/>
+					<span v-on:click="loadStatistics(category)">{{ category ? category.replace(/^.*\./, "") : "Misc" }} ({{getArtifactsInCategory(category).length}})</span>
+				</div>
+				<ul v-show="visibleCategories.indexOf(category) >= 0">
+					<li v-for="artifact in getArtifactsInCategory(category) | orderBy 'id'"><a href="#" v-on:click="loadGraphs(artifact)">{{ artifact.id }}</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="content">
+			
+		</div>
+		
+		<template id="statistics">
+			<div class="category" v-for="category in categories">
+				<h1>{{ category }}</h1>
+				<table class="statistics">
+					<thead>
+						<tr>
+							<td>Id</td>
+							<td>Cumulative Average</td>
+							<td>Exponential Average</td>
+							<td>Minimum</td>
+							<td>Maximum</td>
+							<td>25% Deviation</td>
+							<td>50% Deviation</td>
+							<td>75% Deviation</td>
+							<td>Larger Deviation</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="statistic in getCategory(category) | orderBy sortParam sortOrder">
+							<td>{{ statistic.id }}</td>
+							<td>{{ round(statistic.cumulativeAverage) }}</td>
+							<td>{{ round(statistic.exponentialAverage) }}</td>
+							<td>{{ statistic.minimum.value }}</td>
+							<td>{{ statistic.maximum.value }}</td>
+							<td v-bind:class="{ good: statistic.deviation25 >= 0.4 }">{{ round(statistic.deviation25) }}</td>
+							<td v-bind:class="{ warning: statistic.deviation50 >= 0.4 }">{{ round(statistic.deviation50) }}</td>
+							<td v-bind:class="{ warning: statistic.deviation75 >= 0.4 }">{{ round(statistic.deviation75) }}</td>
+							<td v-bind:class="{ bad: statistic.deviationRest >= 0.4 }">{{ round(statistic.deviationRest) }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</template>
+		
+		<template id="graphs">
+			<h1>{{ id }}</h1>
+			<div class="chart" v-for="serie in series">
+				<h2>{{ serie.name }} ({{ serie.values.length }})</h2>
+				<div v-graph="serie"></div>
+				<table>
+					<tr>
+						<td class="title">Cumulative Average</td>
+						<td>{{ round(serie.statistics.cumulativeAverage) }}</td>
+					</tr>
+					<tr>
+						<td class="title">Exponential Average</td>
+						<td>{{ round(serie.statistics.exponentialAverage) }}</td>
+					</tr>
+					<tr>
+						<td class="title">Minimum</td>
+						<td>{{ serie.statistics.minimum.value }}</td>
+					</tr>
+					<tr>
+						<td class="title">Maximum</td>
+						<td>{{ serie.statistics.maximum.value }}</td>
+					</tr>
+				</table>
+			</div>
+		</template>
+	</body>
+</html>

@@ -1,0 +1,3 @@
+<structure name="root">
+    <field maxOccurs="unbounded" minOccurs="0" name="metrics" type="java.lang.String"/>
+</structure>
