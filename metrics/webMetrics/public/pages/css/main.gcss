@@ -1,0 +1,184 @@
+# The height of the navigation bar
+navigationHeight = "50px"
+sideBarWidth = "350px"
+
+lightTextColor = "#FAFAFA"
+darkTextColor = "#000000"
+darkBackgroundColor = "#CCCCCC"
+lightBackgroundColor = "#FFFFFF"
+borderColor = "#666666"
+
+cleanTable = lambda
+	empty-cells: show
+	border-collapse: collapse
+	border-spacing: 0px
+	
+
+font-family: Helvetica
+font-size: 10pt
+box-sizing: border-box
+
+.good {
+	background-color: #ddffd9
+	text-color: #139805
+}
+
+.warning {
+	background-color: #ffeace
+	text-color: #b16808
+}
+
+.bad {
+	background-color: #ffdfd9
+	text-color: #a71c00
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	padding: 0px
+	margin: 0px
+	padding-top: ${navigationHeight}
+	background-color: ${darkBackgroundColor}
+}
+
+.navigation {
+	width: 100%
+	height: ${navigationHeight}
+	position: fixed
+	top: 0px
+	border: solid 1px ${borderColor}
+	border-style: none none solid none
+	color: ${lightTextColor}
+	background-color: #000000
+	
+	a {
+		background-color: rgba(255,255,255,0.2)
+		color: #FAFAFA;
+		text-decoration: none;
+		display: inline-block;
+		width: 150px;
+		text-align: center;
+		vertical-align: top;
+		padding-top: 25px;
+		height: 100%;
+		margin-left: 10px;
+		border: solid 1px ${borderColor};
+		border-style: none solid
+		
+		&:hover {
+			background-color: rgba(255,255,255,0.4);
+		}
+	}
+}
+
+.sideBar {
+	width: ${sideBarWidth};
+	float: left
+	padding: 10px
+	color: ${darkTextColor}
+	height: 100%
+	border: solid 1px ${borderColor}
+	border-style: none solid none none
+	overflow: auto
+	
+	.category .type {
+		img {
+			vertical-align: middle;
+		}
+		span {
+			cursor: pointer;
+		}
+	}
+	
+	a {
+		color: ${darkTextColor};
+		text-decoration: none
+		border: solid 1px ${borderColor}
+		border-style: none none dashed none
+	}
+	
+	> .direct_child {
+		style: 'this';
+	}
+}
+
+#content {
+	padding: 20px
+	background-color: ${lightBackgroundColor};
+	color: ${darkTextColor}
+	width: calc(100% - ${sideBarWidth})
+	height: 100%
+	overflow: auto
+	float: right
+	
+	:after {
+		clear:both;
+	}
+	
+	table {
+		width: 100%;
+		cleanTable()
+		border: solid 1px ${borderColor};
+		margin: 10px
+		
+		td {
+			padding: 5px;
+			text-align: center;
+			border: solid 1px ${borderColor};
+			
+			:first-child {
+				text-align: left;
+			}
+			
+			.title {
+				background-color: ${darkBackgroundColor};
+				color: ${darkTextColor}
+				text-align: right;
+				width: 50%
+			}
+		}
+	}
+	
+	h1 {
+		font-size: 16pt;
+		border: solid 1px ${borderColor};
+		border-style: none none dashed none
+	}
+	
+	h2 {
+		font-size: 14pt;
+		border: solid 1px ${darkBackgroundColor};
+		border-style: none none solid none
+	}
+	
+	thead {
+		text-transform: uppercase;
+		font-weight: bold;
+		background-color: ${darkBackgroundColor};
+	}
+	
+	.chart {
+		margin: 20px;
+		padding: 10px;
+		position: relative;
+		width: 25%;
+		max-width: 100%;
+		min-width: 150px;
+		display: inline-block;
+		
+		svg {
+			max-height: 250px;
+		}
+		
+		.ct-series.ct-series-b, ct-series.ct-series-c {
+			.ct-line {
+				stroke-dasharray: 30px 5px;
+				stroke-width: 1px
+			}
+		}
+	}
+}

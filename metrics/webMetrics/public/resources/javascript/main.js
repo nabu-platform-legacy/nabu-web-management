@@ -9,12 +9,14 @@ window.addEventListener("load", function() {
 			visibleCategories: []
 		},
 		created: function() {
-			console.log("LOCAL STORAGE", localStorage);
 			var self = this;
 			ajax({
-				url: "/metrics/list",
+				url: "/metrics/database/list",
 				success: function(response) {
-					self.metricDatabases = JSON.parse(response.responseText);
+					var databases = JSON.parse(response.responseText);
+					for (var i = 0; i < databases.length; i++) {
+						self.metricDatabases.push(databases[i]);
+					}
 				}
 			});
 		},
@@ -22,6 +24,28 @@ window.addEventListener("load", function() {
 			reset: function() {
 				this.metrics = [];
 				this.visibleCategories = [];
+			},
+			selectLocal: function(since) {
+				var sinceString;
+				if (since) {
+					sinceString = "?since=" + since.toISOString();
+				}
+				else {
+					sinceString = "";
+					this.reset();
+				}
+				var self = this;
+				ajax({
+					url: "/metrics/server" + sinceString,
+					success: function(response) {
+						var data = JSON.parse(response.responseText);
+						since = new Date(data.overview.timestamp);
+						self.pushOverview(data.overview);
+						setTimeout(function() {
+							self.selectLocal(since);
+						}, 10000);
+					}
+				});
 			},
 			select: function(database, since) {
 				if (since) {
@@ -33,7 +57,7 @@ window.addEventListener("load", function() {
 				}
 				var self = this;
 				ajax({
-					url: "/metrics/list/" + database + since,
+					url: "/metrics/database/" + database + since,
 					success: function(response) {
 						var data = JSON.parse(response.responseText);
 						since = new Date(data.overview.timestamp);
@@ -66,31 +90,36 @@ window.addEventListener("load", function() {
 				var artifacts = this.getArtifactsInCategory(category);
 				var statistics = [];
 				for (var i = 0; i < artifacts.length; i++) {
-					for (var j = 0; j < artifacts[i].series.length; j++) {
-						var statistic = {
-							id: artifacts[i].id,
-							category: artifacts[i].series[j].name,
-							cumulativeAverage: artifacts[i].series[j].statistics.cumulativeAverage,
-							exponentialAverage: artifacts[i].series[j].statistics.exponentialAverage,
-							minimum: artifacts[i].series[j].statistics.minimum,
-							maximum: artifacts[i].series[j].statistics.maximum
-						};
-						for (var k = 0; k < artifacts[i].series[j].statistics.cumulativeAverageDeviation.length; k++) {
-							var deviation = artifacts[i].series[j].statistics.cumulativeAverageDeviation[k];
-							if (deviation.deviation == 0.25) {
-								statistic["deviation25"] = deviation.percentage;
-							}
-							else if (deviation.deviation == 0.50) {
-								statistic["deviation50"] = deviation.percentage;
-							}
-							else if (deviation.deviation == 0.75) {
-								statistic["deviation75"] = deviation.percentage;
-							}
-							else {
-								statistic["deviationRest"] = deviation.percentage;
+					if (artifacts[i].series) {
+						for (var j = 0; j < artifacts[i].series.length; j++) {
+							if (artifacts[i].series[j].statistics) {
+								var statistic = {
+									id: artifacts[i].id,
+									category: artifacts[i].series[j].name,
+									cumulativeAverage: artifacts[i].series[j].statistics.cumulativeAverage,
+									exponentialAverage: artifacts[i].series[j].statistics.exponentialAverage,
+									minimum: artifacts[i].series[j].statistics.minimum,
+									maximum: artifacts[i].series[j].statistics.maximum,
+									amount: artifacts[i].series[j].statistics.amountOfDataPoints
+								};
+								for (var k = 0; k < artifacts[i].series[j].statistics.cumulativeAverageDeviation.length; k++) {
+									var deviation = artifacts[i].series[j].statistics.cumulativeAverageDeviation[k];
+									if (deviation.deviation == 0.25) {
+										statistic["deviation25"] = deviation.percentage;
+									}
+									else if (deviation.deviation == 0.50) {
+										statistic["deviation50"] = deviation.percentage;
+									}
+									else if (deviation.deviation == 0.75) {
+										statistic["deviation75"] = deviation.percentage;
+									}
+									else {
+										statistic["deviationRest"] = deviation.percentage;
+									}
+								}
+								statistics.push(statistic);
 							}
 						}
-						statistics.push(statistic);
 					}
 				}
 				var instance = new Statistics({
@@ -183,7 +212,7 @@ var Statistics = Vue.component("statistics", {
 	template: "#statistics",
 	data: function() {
 		return {
-			sortParam: "cumulativeAverage",
+			sortParam: "amount",
 			sortOrder: -1
 		}
 	},
@@ -239,6 +268,85 @@ var Graphs = Vue.component("graphs", {
 	}
 });
 
+var Graph = Vue.component("n-graph", {
+	props: ["serie"],
+	template: "<div></div>",
+	data: function() {
+		return {
+			labels: [],
+			values: [],
+			cumulativeAverage: [],
+			exponentialAverage: [],
+			target: null
+		}
+	},
+	ready: function() {
+		this.calculate(this.serie);
+	},
+	methods: {
+		calculate: function(serie) {
+			this.labels.splice(0, this.labels.length);
+			this.values.splice(0, this.values.length);
+			this.cumulativeAverage.splice(0, this.cumulativeAverage.length);
+			this.exponentialAverage.splice(0, this.exponentialAverage.length);
+			
+			for (var j = 0; j < serie.values.length; j++) {
+				this.labels.push(new Date(serie.values[j].timestamp).toLocaleTimeString())
+				this.values.push({
+					meta: new Date(serie.values[j].timestamp).toLocaleTimeString(),
+					value: serie.values[j].value
+				});
+				if (serie.statistics) {
+					this.cumulativeAverage.push(serie.statistics.cumulativeAverage);
+					this.exponentialAverage.push(serie.statistics.exponentialAverage);
+				}
+			}
+			
+			var self = this;
+			var newTarget = document.createElement("div");
+		 	var chart = new Chartist.Line(newTarget, {
+				labels: self.labels,
+				series: [
+					self.values,
+					self.cumulativeAverage,
+					self.exponentialAverage
+				]
+			}, {
+				showArea: true,
+				axisX: {
+					labelInterpolationFnc: function skipLabels(value, index) {
+						var result = index % (value.length / 10.0) === 0 ? value : null;
+						return isNaN(result) ? null : result;
+					}
+				},
+				//showPoint: false,
+				fullWidth: true,
+	/*			low: 0,*/
+				lineSmooth: Chartist.Interpolation.simple({
+					divisor: 2
+				}),
+				plugins: [
+					Chartist.plugins.tooltip()
+				]
+			});
+			
+			if (this.target) {
+				this.$el.removeChild(this.target);
+			}
+			this.$el.appendChild(newTarget);
+			this.target = newTarget;
+		}
+	},
+	watch: {
+		serie: {
+			handler: function(newValue, oldValue) {
+				this.calculate(newValue);
+			},
+			deep: true
+		}
+	}
+});
+
 Vue.directive("graph", {
 	bind: function() {
 	
@@ -251,8 +359,10 @@ Vue.directive("graph", {
 		for (var j = 0; j < serie.values.length; j++) {
 			labels.push(new Date(serie.values[j].timestamp).toLocaleTimeString())
 			data.push(serie.values[j].value);
-			cumulativeAverage.push(serie.statistics.cumulativeAverage);
-			exponentialAverage.push(serie.statistics.exponentialAverage);
+			if (serie.statistics) {
+				cumulativeAverage.push(serie.statistics.cumulativeAverage);
+				exponentialAverage.push(serie.statistics.exponentialAverage);
+			}
 		}
 		if (data.length > 0) {
 			var target = document.createElement("div");

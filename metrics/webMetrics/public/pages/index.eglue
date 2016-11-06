@@ -5,12 +5,15 @@
 		<script src='${server.root()}resources/javascript/vue-1.0.13.js' type="text/javascript"></script>
 		<script src='${server.root()}resources/javascript/main.js' type="text/javascript"></script>
 		<script src='${server.root()}resources/javascript/chartist-0.9.5.js' type="text/javascript"></script>
+		<script src="${server.root()}resources/javascript/chartist-tooltip-0.0.15.js" type="text/javascript"></script>
 		
 		<link rel='stylesheet' type='text/css' href='${server.root()}css/main'/>
 		<link rel='stylesheet' type='text/css' href='${server.root()}resources/css/chartist-0.9.5.css'/>
+		<link rel='stylesheet' type='text/css' href='${server.root()}resources/css/chartist-tooltip-0.0.15.css'/>
 	</head>
 	<body>
 		<div class="navigation">
+			<a v-on:click="selectLocal()">Local Server</a>
 			<a v-for="metricDatabase in metricDatabases" v-on:click="select(metricDatabase)" href="#">{{ metricDatabase }}</a>
 		</div>
 		<div class="sideBar">
@@ -36,6 +39,7 @@
 					<thead>
 						<tr>
 							<td>Id</td>
+							<td>Amount</td>
 							<td>Cumulative Average</td>
 							<td>Exponential Average</td>
 							<td>Minimum</td>
@@ -49,6 +53,7 @@
 					<tbody>
 						<tr v-for="statistic in getCategory(category) | orderBy sortParam sortOrder">
 							<td>{{ statistic.id }}</td>
+							<td>{{ statistic.amount }}</td>
 							<td>{{ round(statistic.cumulativeAverage) }}</td>
 							<td>{{ round(statistic.exponentialAverage) }}</td>
 							<td>{{ statistic.minimum.value }}</td>
@@ -67,8 +72,9 @@
 			<h1>{{ id }}</h1>
 			<div class="chart" v-for="serie in series">
 				<h2>{{ serie.name }} ({{ serie.values.length }})</h2>
-				<div v-graph="serie"></div>
-				<table>
+				<!-- <div v-graph="serie"></div> -->
+				<n-graph :serie="serie"></n-graph>
+				<table v-if="serie.statistics">
 					<tr>
 						<td class="title">Cumulative Average</td>
 						<td>{{ round(serie.statistics.cumulativeAverage) }}</td>
@@ -84,6 +90,10 @@
 					<tr>
 						<td class="title">Maximum</td>
 						<td>{{ serie.statistics.maximum.value }}</td>
+					</tr>
+					<tr>
+						<td class="title">Amount Of Data Points</td>
+						<td>{{ serie.statistics.amountOfDataPoints }}</td>
 					</tr>
 				</table>
 			</div>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<restInterface>
+    <method>GET</method>
+    <path>/database/{databaseId}</path>
+    <queryParameters>since</queryParameters>
+    <output>nabu.web.management.metrics.types.metricsOutput</output>
+</restInterface>

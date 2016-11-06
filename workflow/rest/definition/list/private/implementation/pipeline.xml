@@ -1,0 +1,6 @@
+<structure interface="$self:api" name="pipeline">
+    <structure name="input"/>
+    <structure name="output"/>
+    <field maxOccurs="unbounded" minOccurs="0" name="definitionIds" type="java.lang.String"/>
+    <structure definition="nabu.web.management.workflow.types.definition.workflow" minOccurs="0" name="workflow"/>
+</structure>
