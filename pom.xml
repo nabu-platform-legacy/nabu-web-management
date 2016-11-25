@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nabu.web</groupId>
 	<artifactId>management</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>${nabu.web-management-version}</version>
 	<name>management</name>
 	
 	<parent>
@@ -18,7 +18,22 @@
 		<dependency>
 			<groupId>nabu.web</groupId>
 			<artifactId>application</artifactId>
-			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>nabu.web.rest</groupId>
+			<artifactId>provider</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>nabu.protocols.http</groupId>
+			<artifactId>server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>nabu.types</groupId>
+			<artifactId>structure</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>nabu.services</groupId>
+			<artifactId>vm</artifactId>
 		</dependency>
 	</dependencies>
 </project>
