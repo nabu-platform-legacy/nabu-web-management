@@ -1,0 +1,3 @@
+for (resource : resources())
+	if (resource ~ ".*\.tpl")
+		echo(resource(resource), "\n")

@@ -1,0 +1,3 @@
+for (resource : resources("nabu.management.component.workflow.tpl.workflow"))
+	if (resource ~ ".*\.gcss")
+		eval(resource(resource, "nabu.management.component.workflow.tpl.workflow"))

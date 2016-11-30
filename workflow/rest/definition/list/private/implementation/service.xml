@@ -1,55 +1,10 @@
 <sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" disabled="false" id="2ff7deb6-7fc4-49e9-a78a-06d83c6fb8f5">
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map" disabled="false" id="bd28fe5b-fca5-4f17-ae3e-53e20ef0a4d0">
-		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke" disabled="false" id="ed436193-112d-4fc3-9f03-67f375902da9" serviceId="nabu.misc.workflow.Services.getDefinitionIds" resultName="resultb53436ed86c7428eae34a9460ca17aa4" invocationOrder="0" temporaryMapping="true" y="86" x="89">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke" disabled="false" id="4646f2f9-8af5-4171-95d2-ba8ca14d8775" serviceId="nabu.misc.workflow.Services.getDefinitions" resultName="result79c67f61ece04deebe4dd8b14daffff7" invocationOrder="0" temporaryMapping="true" y="144" x="80">
 		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="449c3137-1370-45f5-8d59-994ccc631de4" optional="false" mask="false" fixedValue="false">
-			<from>resultb53436ed86c7428eae34a9460ca17aa4/definitionIds</from>
-			<to>definitionIds</to>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="6f1ed5cd-89bd-4420-8d9d-2e777d8d695e" optional="false" mask="false" fixedValue="false">
+			<from>result79c67f61ece04deebe4dd8b14daffff7/definitions</from>
+			<to>output/content/workflows</to>
 		</steps>
-	</steps>
-	<steps xsi:type="be.nabu.libs.services.vm.step.For" disabled="false" id="241cd2fd-26bf-4e42-b805-b9bca4e7b569" variable="definitionId">
-		<steps xsi:type="be.nabu.libs.services.vm.step.Map" disabled="false" id="b47d451c-cbe2-421d-8968-e3c258d59c20">
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="281881ab-fbd2-4d5d-b013-92d2ca136dfc" optional="false" mask="false" fixedValue="false">
-				<from>definitionId</from>
-				<to>workflow/definitionId</to>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke" disabled="false" id="7f0ac90d-f45e-4f66-b03a-438f88e3bdf1" serviceId="nabu.misc.workflow.Services.getStates" resultName="result4e5af86f705c4e68a68c289a80b24b22" invocationOrder="0" temporaryMapping="true" y="60" x="40">
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="726dcba1-87e3-4548-8042-29fd838ec13a" optional="false" mask="false" fixedValue="false">
-					<from>definitionId</from>
-					<to>definitionId</to>
-				</steps>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke" disabled="false" id="90a96bca-75d5-447a-9dcc-51f0ad627209" serviceId="nabu.misc.workflow.Services.getPropertyDefinitions" resultName="resultc810151bcbf04429a74a9216b2e19bcd" invocationOrder="0" temporaryMapping="true" y="240" x="40">
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="00be5e2f-dca1-4e26-aebf-f16398e28cc9" optional="false" mask="false" fixedValue="false">
-					<from>definitionId</from>
-					<to>definitionId</to>
-				</steps>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="d35054f4-81ff-4846-91d6-223a26fc8eaf" optional="false" mask="false" fixedValue="false">
-				<from>result4e5af86f705c4e68a68c289a80b24b22/states</from>
-				<to>workflow/states</to>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="06cccd36-17b5-4b0f-b69a-03329c500bc8" optional="false" mask="false" fixedValue="false">
-				<from>resultc810151bcbf04429a74a9216b2e19bcd/propertyDefinitions</from>
-				<to>workflow/properties</to>
-			</steps>
-		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Map" disabled="false" id="cc1d6772-c058-487b-b80d-a2062433dc1b">
-			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke" disabled="false" id="d3143ec2-dc10-4fb2-8079-5d53ff06b755" serviceId="nabu.utils.List.add" resultName="resultbf132f9fcfbf41a4a42f9d2c205b0745" invocationOrder="0" temporaryMapping="true" y="95" x="71">
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="5cc3c1d0-507b-4046-923e-ef5cc35c7b0b" optional="false" mask="false" fixedValue="false">
-					<from>workflow</from>
-					<to>object</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="8ae3487f-1bc1-48ae-b280-0079a3faee45" optional="false" mask="false" fixedValue="false">
-					<from>output/content/workflows</from>
-					<to>list</to>
-				</steps>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="03765085-5031-45aa-810b-211a8b93f9da" optional="false" mask="false" fixedValue="false">
-				<from>resultbf132f9fcfbf41a4a42f9d2c205b0745/list</from>
-				<to>output/content/workflows</to>
-			</steps>
-		</steps>
-		<query>definitionIds</query>
 	</steps>
 </sequence>

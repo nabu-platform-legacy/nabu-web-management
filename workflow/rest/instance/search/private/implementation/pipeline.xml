@@ -1,0 +1,6 @@
+<structure interface="$self:api" name="pipeline">
+    <structure name="input"/>
+    <structure name="output"/>
+    <structure definition="nabu.utils.types.Property" name="pair"/>
+    <structure definition="nabu.utils.types.Property" maxOccurs="unbounded" name="properties"/>
+</structure>

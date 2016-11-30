@@ -1,5 +1,0 @@
-<structure name="root">
-    <field name="definitionId" type="java.lang.String"/>
-    <structure definition="be.nabu.eai.module.workflow.WorkflowState" maxOccurs="unbounded" minOccurs="0" name="states"/>
-    <structure definition="be.nabu.libs.types.api.KeyValuePair" maxOccurs="unbounded" minOccurs="0" name="properties"/>
-</structure>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <restInterface>
     <method>GET</method>
-    <path>/workflow/definition</path>
+    <path>/definition</path>
     <output>nabu.web.management.workflow.types.definition.workflowList</output>
 </restInterface>

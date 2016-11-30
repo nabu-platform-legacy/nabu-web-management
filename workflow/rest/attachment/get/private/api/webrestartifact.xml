@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<restInterface>
+    <method>GET</method>
+    <path>/attachment/{uri : .*}</path>
+    <responseHeaders>Content-Type, Content-Length, Content-Disposition</responseHeaders>
+    <outputAsStream>true</outputAsStream>
+</restInterface>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<restInterface>
+    <method>GET</method>
+    <path>/{definitionId}/instance/{workflowId}</path>
+    <output>nabu.web.management.workflow.types.instance.workflowDetail</output>
+</restInterface>

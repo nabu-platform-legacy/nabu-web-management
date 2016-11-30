@@ -1,0 +1,52 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" disabled="false" id="59dbac5b-ac2b-4c1c-860d-c44424fdb9f4">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map" disabled="false" id="abc9ff0a-61a3-4acd-8722-1b93e0399577">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke" disabled="false" id="e98ba049-de3c-49c9-a321-4e6daa0a9383" serviceId="nabu.misc.workflow.Services.getHistory" resultName="resulta0cb8675a94e4dc9a2f36c35ae137528" invocationOrder="0" temporaryMapping="true" y="20" x="80">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="510628b8-db13-429b-b353-476cbc630485" fixedValue="false" optional="false" mask="false">
+				<from>input/path/definitionId</from>
+				<to>definitionId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="1e673e2e-9c67-4753-85fb-8f3dd9149f5b" fixedValue="false" optional="false" mask="false">
+				<from>input/path/workflowId</from>
+				<to>workflowId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke" disabled="false" id="f478b0a6-7bb4-4854-be5b-92d30c43dc50" serviceId="nabu.misc.workflow.Services.getProperties" resultName="result046f101721c246d48bb2d47aff22d337" invocationOrder="0" temporaryMapping="true" y="150" x="80">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="1f58a13d-21d4-477f-a8ea-99d454b23995" fixedValue="false" optional="false" mask="false">
+				<from>input/path/definitionId</from>
+				<to>definitionId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="2c90ec57-25c0-4678-a045-fc358ab71b76" fixedValue="false" optional="false" mask="false">
+				<from>input/path/workflowId</from>
+				<to>workflowId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke" disabled="false" id="fe90dd6f-f355-4082-97bc-bd7f9c0f8ed2" serviceId="nabu.misc.workflow.Services.getWorkflow" resultName="resultc82cc987b13b439e8e11e90764b22585" invocationOrder="0" temporaryMapping="true" y="310" x="80">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="f7306f6c-ec26-47ab-b635-a4adc0ff4750" fixedValue="false" optional="false" mask="false">
+				<from>input/path/definitionId</from>
+				<to>definitionId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="5da1b15b-200e-4713-89c7-2e988262a6be" fixedValue="false" optional="false" mask="false">
+				<from>input/path/workflowId</from>
+				<to>workflowId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="a850c51a-6ad5-484a-8a9d-76c48daf0ef8" fixedValue="false" optional="false" mask="false">
+			<from>resulta0cb8675a94e4dc9a2f36c35ae137528/transitions</from>
+			<to>output/content/transitions</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="2f5bf544-2248-4b67-94d5-a025c09135b4" fixedValue="false" optional="false" mask="false">
+			<from>result046f101721c246d48bb2d47aff22d337/properties</from>
+			<to>output/content/properties</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="3eeb2608-f497-470a-8c37-020148a1aaa5" fixedValue="false" optional="false" mask="false">
+			<from>resultc82cc987b13b439e8e11e90764b22585/workflow</from>
+			<to>output/content/workflow</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke" disabled="false" id="66a2a3f1-c688-4caa-96d1-2432515d86bf" serviceId="nabu.misc.workflow.Services.getDefinitions" resultName="result314bbf94d1624360baa3b55f7a9bdc8b" invocationOrder="0" temporaryMapping="true" y="432" x="80">
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link" disabled="false" id="d0b97758-00db-4021-9330-727ca24fac53" fixedValue="false" optional="false" mask="false">
+			<from>result314bbf94d1624360baa3b55f7a9bdc8b/definitions[definitionId = /input/path/definitionId]</from>
+			<to>output/content/definition</to>
+		</steps>
+	</steps>
+</sequence>

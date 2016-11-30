@@ -1,0 +1,7 @@
+for (resource : resources())
+	if (resource ~ ".*\.js")
+		echo(resource(resource), "\n")
+		
+for (resource : resources("nabu.management.component.workflow.tpl.workflow"))
+	if (resource ~ ".*\.js")
+		echo(resource(resource, "nabu.management.component.workflow.tpl.workflow"), "\n")
