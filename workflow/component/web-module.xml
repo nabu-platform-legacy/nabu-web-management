@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<webModule>
-    <path>/api/workflow</path>
-    <webFragments>nabu.web.management.workflow.rest.definition.list</webFragments>
-    <webFragments>nabu.web.management.workflow.rest.instance.get</webFragments>
-    <webFragments>nabu.web.management.workflow.rest.instance.search</webFragments>
-    <webFragments>nabu.web.management.workflow.rest.attachment.get</webFragments>
-    <webFragments>nabu.web.management.workflow.rest.instance.update</webFragments>
-</webModule>

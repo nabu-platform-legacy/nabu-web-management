@@ -1,3 +1,0 @@
-<structure name="root">
-    <field name="transitionState" type="nabu.misc.workflow.types.WorkflowInstance$Level"/>
-</structure>

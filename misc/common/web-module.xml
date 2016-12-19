@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<webModule>
-    <path>/</path>
-    <webFragments>nabu.web.core.components</webFragments>
-</webModule>

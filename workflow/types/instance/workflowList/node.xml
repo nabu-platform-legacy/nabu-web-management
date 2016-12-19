@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><node artifactManager="be.nabu.eai.module.types.structure.StructureManager" lastModified="2016-11-03T07:34:11.715+01:00" leaf="true" version="2"><environmentId>hyperion</environmentId><properties/><references>nabu.misc.workflow.types.WorkflowInstance</references></node>

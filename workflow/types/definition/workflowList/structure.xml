@@ -1,3 +1,0 @@
-<structure name="root">
-    <structure definition="nabu.misc.workflow.types.WorkflowDefinition" maxOccurs="unbounded" minOccurs="0" name="workflows"/>
-</structure>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <webApplication>
-    <virtualHost>nabu.web.management.misc.host</virtualHost>
+    <virtualHost>nabu.management.server.host</virtualHost>
     <realm>nabu</realm>
     <path>/metrics</path>
     <webFragments>nabu.web.gcss.gcssComponent</webFragments>
-    <webFragments>nabu.web.management.metrics.rest.database.list</webFragments>
-    <webFragments>nabu.web.management.metrics.rest.metrics.database</webFragments>
-    <webFragments>nabu.web.management.metrics.rest.metrics.serverLocal</webFragments>
-    <webFragments>nabu.web.management.metrics.rest.metrics.serverRemote</webFragments>
+    <webFragments>nabu.management.metrics.rest.database.list</webFragments>
+    <webFragments>nabu.management.metrics.rest.metrics.database</webFragments>
+    <webFragments>nabu.management.metrics.rest.metrics.serverLocal</webFragments>
+    <webFragments>nabu.management.metrics.rest.metrics.serverRemote</webFragments>
 </webApplication>

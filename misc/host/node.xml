@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><node artifactManager="be.nabu.eai.module.http.virtual.VirtualHostManager" lastModified="2016-02-22T09:36:54.504+01:00" leaf="true" version="2"><environmentId>nirrti</environmentId><properties/><references>nabu.web.management.misc.server</references></node>

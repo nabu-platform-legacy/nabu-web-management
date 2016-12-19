@@ -1,6 +1,0 @@
-<structure name="detail">
-    <structure definition="nabu.misc.workflow.types.WorkflowDefinition" name="definition"/>
-    <structure definition="nabu.misc.workflow.types.WorkflowInstance" name="workflow"/>
-    <structure definition="nabu.misc.workflow.types.WorkflowTransitionInstance" maxOccurs="unbounded" minOccurs="0" name="transitions"/>
-    <structure definition="nabu.misc.workflow.types.WorkflowInstanceProperty" maxOccurs="unbounded" minOccurs="0" name="properties"/>
-</structure>

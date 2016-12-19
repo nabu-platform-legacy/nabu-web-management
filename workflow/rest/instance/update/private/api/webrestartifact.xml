@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<restInterface>
-    <method>PUT</method>
-    <path>/{definitionId}/instance/{workflowId}</path>
-    <input>nabu.web.management.workflow.types.instance.updateInput</input>
-</restInterface>

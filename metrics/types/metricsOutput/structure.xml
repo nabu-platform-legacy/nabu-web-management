@@ -1,3 +1,0 @@
-<structure name="root">
-    <structure definition="be.nabu.eai.module.metrics.beans.MetricOverview" name="overview"/>
-</structure>
